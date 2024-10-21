@@ -4,6 +4,8 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.lang.*;
+import java.util.InputMismatchException;
 
 public class PokemonGame {
 
@@ -181,26 +183,68 @@ public class PokemonGame {
         }
     }
 
-    public static void pokemonGameMenu() {
-        Scanner scanner = new Scanner(System.in);
+//     public static void pokemonGameMenu() {
+//         Scanner scanner = new Scanner(System.in);
 
-        // Initialize Pokémon and Bag
-        List<Pokemon> listOfPokemon = initializePokemon();
-        Bag bag = new Bag(3, 5);  // Start with 3 Burn Heal and 5 HP Heal
+//         // Initialize Pokémon and Bag
+//         List<Pokemon> listOfPokemon = initializePokemon();
+//         Bag bag = new Bag(3, 5);  // Start with 3 Burn Heal and 5 HP Heal
 
-        System.out.println("\nWelcome to the Pokemon Game!");
-        boolean exit = false;
-        while (!exit) {
-            System.out.println("1. List your Pokemon");
-            System.out.println("2. Fight random Pokemon");
-            System.out.println("3. Exit");
-//            System.out.println("2. Change Pokémon name");
-//            System.out.println("3. Hibernate Pokémon");
-//            System.out.println("4. Battle Pokémon");
-//            System.out.println("5. View your BAG (use items)");
-//            System.out.println("6. Run from battle");
-//            System.out.println("7. Exit");
-            System.out.print("Your choice: ");
+//         System.out.println("\nWelcome to the Pokemon Game!");
+//         boolean exit = false;
+//         while (!exit) {
+//             System.out.println("1. List your Pokemon");
+//             System.out.println("2. Fight random Pokemon");
+//             System.out.println("3. Exit");
+// //            System.out.println("2. Change Pokémon name");
+// //            System.out.println("3. Hibernate Pokémon");
+// //            System.out.println("4. Battle Pokémon");
+// //            System.out.println("5. View your BAG (use items)");
+// //            System.out.println("6. Run from battle");
+// //            System.out.println("7. Exit");
+//             System.out.print("Your choice: ");
+//             int choice = scanner.nextInt();
+
+//             switch (choice) {
+//                 case 1:
+//                     listYourPokemonMenu(listOfPokemon, scanner);
+//                     break;
+//                 case 2:
+//                     fightPokemonMenu(listOfPokemon, scanner);
+//                     break;
+//                 case 3:
+//                     exit = true;
+//                     System.out.println("Exiting the game...");
+//                     break;
+// //                case 4:
+// //                    battlePokemon(listOfPokemon, scanner, bag);
+// //                    break;
+// //                case 5:
+// //                    useBagItems(listOfPokemon, scanner, bag);
+// //                    break;
+// //                case 6:
+// //                    System.out.println("You ran from the battle!");
+// //                    break;
+//                 default:
+//                     System.out.println("Invalid option, try again.");
+//             }
+//         }
+//         scanner.close();
+//     }
+
+public static void pokemonGameMenu() {
+    Scanner scanner = new Scanner(System.in);
+    List<Pokemon> listOfPokemon = initializePokemon();
+    Bag bag = new Bag(3, 5);  // Start with 3 Burn Heal and 5 HP Heal
+
+    System.out.println("\nWelcome to the Pokemon Game!");
+    boolean exit = false;
+    while (!exit) {
+        System.out.println("1. List your Pokemon");
+        System.out.println("2. Fight random Pokemon");
+        System.out.println("3. Exit");
+        System.out.print("Your choice: ");
+        try {
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -214,21 +258,19 @@ public class PokemonGame {
                     exit = true;
                     System.out.println("Exiting the game...");
                     break;
-//                case 4:
-//                    battlePokemon(listOfPokemon, scanner, bag);
-//                    break;
-//                case 5:
-//                    useBagItems(listOfPokemon, scanner, bag);
-//                    break;
-//                case 6:
-//                    System.out.println("You ran from the battle!");
-//                    break;
                 default:
                     System.out.println("Invalid option, try again.");
             }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input type. Please enter a number.");
+            scanner.nextLine(); // Clear the invalid input
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
         }
-        scanner.close();
     }
+    scanner.close();
+}
+
 
     public static void main(String[] args) {
         pokemonGameMenu();
